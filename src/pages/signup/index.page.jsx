@@ -1,20 +1,20 @@
-import React, { useCallback, useState } from "react";
-import { Navigate, Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import "./index.css";
-import { useSignup } from "~/hooks/useSignup";
-import { useId } from "~/hooks/useId";
+import React, { useCallback, useState } from 'react';
+import { Navigate, Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import './index.css';
+import { useSignup } from '~/hooks/useSignup';
+import { useId } from '~/hooks/useId';
 
 const SignUp = () => {
   const auth = useSelector((state) => state.auth.token !== null);
 
   const id = useId();
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
+  const [password, setPassword] = useState('');
 
   const { signup } = useSignup();
 
@@ -43,15 +43,9 @@ const SignUp = () => {
     <main className="signup">
       <h2 className="signup__title">Register</h2>
       <p className="signup__error">{errorMessage}</p>
-      <form
-        className="signup__form"
-        onSubmit={onSubmit}
-      >
+      <form className="signup__form" onSubmit={onSubmit}>
         <fieldset className="signup__form_field">
-          <label
-            htmlFor={`${id}-email`}
-            className="signup__form_label"
-          >
+          <label htmlFor={`${id}-email`} className="signup__form_label">
             E-mail Address
           </label>
           <input
@@ -95,19 +89,11 @@ const SignUp = () => {
           />
         </fieldset>
         <div className="signup__form_actions">
-          <Link
-            className="app_button"
-            data-variant="secondary"
-            to="/signin"
-          >
+          <Link className="app_button" data-variant="secondary" to="/signin">
             Login
           </Link>
           <div className="signup__form_actions_spacer"></div>
-          <button
-            type="submit"
-            className="app_button"
-            disabled={isSubmitting}
-          >
+          <button type="submit" className="app_button" disabled={isSubmitting}>
             Register
           </button>
         </div>

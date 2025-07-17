@@ -1,11 +1,11 @@
-import { useCallback, useState, useEffect } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { BackButton } from "~/components/BackButton";
-import "./index.css";
-import { setCurrentList } from "~/store/list";
-import { fetchTasks, updateTask, deleteTask } from "~/store/task";
-import { useId } from "~/hooks/useId";
+import { useCallback, useState, useEffect } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { BackButton } from '~/components/BackButton';
+import './index.css';
+import { setCurrentList } from '~/store/list';
+import { fetchTasks, updateTask, deleteTask } from '~/store/task';
+import { useId } from '~/hooks/useId';
 
 const EditTask = () => {
   const id = useId();
@@ -14,11 +14,11 @@ const EditTask = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [title, setTitle] = useState("");
-  const [detail, setDetail] = useState("");
+  const [title, setTitle] = useState('');
+  const [detail, setDetail] = useState('');
   const [done, setDone] = useState(false);
 
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const task = useSelector((state) =>
@@ -60,7 +60,7 @@ const EditTask = () => {
   );
 
   const handleDelete = useCallback(() => {
-    if (!window.confirm("Are you sure you want to delete this task?")) {
+    if (!window.confirm('Are you sure you want to delete this task?')) {
       return;
     }
 
@@ -84,15 +84,9 @@ const EditTask = () => {
       <BackButton />
       <h2 className="edit_list__title">Edit List</h2>
       <p className="edit_list__error">{errorMessage}</p>
-      <form
-        className="edit_list__form"
-        onSubmit={onSubmit}
-      >
+      <form className="edit_list__form" onSubmit={onSubmit}>
         <fieldset className="edit_list__form_field">
-          <label
-            htmlFor={`${id}-title`}
-            className="edit_list__form_label"
-          >
+          <label htmlFor={`${id}-title`} className="edit_list__form_label">
             Title
           </label>
           <input
@@ -104,10 +98,7 @@ const EditTask = () => {
           />
         </fieldset>
         <fieldset className="edit_list__form_field">
-          <label
-            htmlFor={`${id}-detail`}
-            className="edit_list__form_label"
-          >
+          <label htmlFor={`${id}-detail`} className="edit_list__form_label">
             Description
           </label>
           <textarea
@@ -119,10 +110,7 @@ const EditTask = () => {
           />
         </fieldset>
         <fieldset className="edit_list__form_field">
-          <label
-            htmlFor={`${id}-done`}
-            className="edit_list__form_label"
-          >
+          <label htmlFor={`${id}-done`} className="edit_list__form_label">
             Is Done
           </label>
           <div>
@@ -135,11 +123,7 @@ const EditTask = () => {
           </div>
         </fieldset>
         <div className="edit_list__form_actions">
-          <Link
-            to="/"
-            data-variant="secondary"
-            className="app_button"
-          >
+          <Link to="/" data-variant="secondary" className="app_button">
             Cancel
           </Link>
           <div className="edit_list__form_actions_spacer"></div>
@@ -151,11 +135,7 @@ const EditTask = () => {
           >
             Delete
           </button>
-          <button
-            type="submit"
-            className="app_button"
-            disabled={isSubmitting}
-          >
+          <button type="submit" className="app_button" disabled={isSubmitting}>
             Update
           </button>
         </div>
