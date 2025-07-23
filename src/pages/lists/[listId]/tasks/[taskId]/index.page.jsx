@@ -93,6 +93,7 @@ const EditTask = () => {
           </label>
           <Input
             id={id}
+            className="app_input"
             title={title}
             placeholder={'Buy some milk'}
             handleChange={(event) => setTitle(event.target.value)}
@@ -104,7 +105,6 @@ const EditTask = () => {
           </label>
           <TextArea
             id={id}
-            className={'app_input'}
             placeholder={'Blah blah blah'}
             detail={detail}
             handleChange={(event) => setDetail(event.target.value)}

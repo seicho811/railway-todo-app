@@ -6,6 +6,7 @@ import { AddButton } from '~/components/AddButton';
 import { DiscardButton } from '~/components/DiscardButton';
 import { MarkButton } from '~/components/MarkButton';
 import { TextArea } from './TextArea';
+import { Input } from '~/components/Input';
 
 export const TaskCreateForm = () => {
   const dispatch = useDispatch();
@@ -84,14 +85,13 @@ export const TaskCreateForm = () => {
           handleBlur={handleBlur}
           done={done}
         />
-        <input
-          type="text"
+        <Input
           className="task_create_form__title"
           placeholder="Add a new task..."
           value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          onFocus={handleFocus}
-          onBlur={handleBlur}
+          handleChange={(e) => setTitle(e.target.value)}
+          handleFocus={handleFocus}
+          handleBlur={handleBlur}
           disabled={formState === 'submitting'}
         />
       </div>

@@ -4,8 +4,8 @@ export const TextArea = ({
   detail,
   handleChange,
   placeholder,
-  className,
   id = null,
+  className = null,
   rows = null,
   expandable = false,
   handleBlur = () => {},
@@ -35,7 +35,7 @@ export const TextArea = ({
       id={id ? `${id}-detail` : undefined}
       ref={expandable ? setElemTextarea : () => {}}
       rows={rows ?? 1}
-      className={className}
+      className={className ?? 'app_input'}
       placeholder={placeholder}
       value={detail}
       onChange={handleChange}
