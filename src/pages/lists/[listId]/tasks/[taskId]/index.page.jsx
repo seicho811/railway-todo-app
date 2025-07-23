@@ -2,6 +2,7 @@ import { useCallback, useState, useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { BackButton } from '~/components/BackButton';
+import { Input } from '~/components/Input';
 import './index.css';
 import { setCurrentList } from '~/store/list';
 import { fetchTasks, updateTask, deleteTask } from '~/store/task';
@@ -89,12 +90,11 @@ const EditTask = () => {
           <label htmlFor={`${id}-title`} className="edit_list__form_label">
             Title
           </label>
-          <input
-            id={`${id}-title`}
-            className="app_input"
-            placeholder="Buy some milk"
-            value={title}
-            onChange={(event) => setTitle(event.target.value)}
+          <Input
+            id={id}
+            title={title}
+            placeholder={'Buy some milk'}
+            handleChange={(event) => setTitle(event.target.value)}
           />
         </fieldset>
         <fieldset className="edit_list__form_field">

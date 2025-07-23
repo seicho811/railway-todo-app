@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { BackButton } from '~/components/BackButton';
 import { SubmitButton } from '~/components/SubmitButton';
+import { Input } from '~/components/Input';
 import './index.css';
 import { fetchLists, updateList, deleteList } from '~/store/list';
 import { useId } from '~/hooks/useId';
@@ -84,12 +85,11 @@ const EditList = () => {
           <label htmlFor={`${id}-title`} className="edit_list__form_label">
             Name
           </label>
-          <input
-            id={`${id}-title`}
-            className="app_input"
-            placeholder="Family"
-            value={title}
-            onChange={(event) => setTitle(event.target.value)}
+          <Input
+            id={id}
+            title={title}
+            placeholder={'Family'}
+            handleChange={(event) => setTitle(event.target.value)}
           />
         </fieldset>
         <div className="edit_list__form_actions">
