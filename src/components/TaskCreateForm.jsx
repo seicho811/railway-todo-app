@@ -1,16 +1,16 @@
-import { useCallback, useEffect, useState, useRef } from 'react';
+import { useCallback, useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import './TaskCreateForm.css';
 import { createTask } from '~/store/task';
 import { AddButton } from '~/components/AddButton';
 import { DiscardButton } from '~/components/DiscardButton';
 import { MarkButton } from '~/components/MarkButton';
+import { TextArea } from './TextArea';
 
 export const TaskCreateForm = () => {
   const dispatch = useDispatch();
 
   const refForm = useRef(null);
-  const [elemTextarea, setElemTextarea] = useState(null);
 
   const [formState, setFormState] = useState('initial');
 
@@ -69,24 +69,6 @@ export const TaskCreateForm = () => {
     [title, detail, done]
   );
 
-  useEffect(() => {
-    if (!elemTextarea) {
-      return;
-    }
-
-    const recalcHeight = () => {
-      elemTextarea.style.height = 'auto';
-      elemTextarea.style.height = `${elemTextarea.scrollHeight}px`;
-    };
-
-    elemTextarea.addEventListener('input', recalcHeight);
-    recalcHeight();
-
-    return () => {
-      elemTextarea.removeEventListener('input', recalcHeight);
-    };
-  }, [elemTextarea]);
-
   return (
     <form
       ref={refForm}
@@ -115,15 +97,14 @@ export const TaskCreateForm = () => {
       </div>
       {formState !== 'initial' && (
         <div>
-          <textarea
-            ref={setElemTextarea}
-            rows={1}
-            className="task_create_form__detail"
-            placeholder="Add a description here..."
-            value={detail}
-            onChange={(e) => setDetail(e.target.value)}
-            onBlur={handleBlur}
-            disabled={formState === 'submitting'}
+          <TextArea
+            detail={detail}
+            placeholder={'Add a description here...'}
+            className={'task_create_form__detail'}
+            expandable={true}
+            handleChange={(e) => setDetail(e.target.value)}
+            handleBlur={handleBlur}
+            formState={formState}
           />
           <div className="task_create_form__actions">
             <DiscardButton

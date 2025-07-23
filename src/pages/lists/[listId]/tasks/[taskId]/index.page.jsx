@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { BackButton } from '~/components/BackButton';
 import { Input } from '~/components/Input';
+import { TextArea } from '~/components/TextArea';
 import './index.css';
 import { setCurrentList } from '~/store/list';
 import { fetchTasks, updateTask, deleteTask } from '~/store/task';
@@ -101,12 +102,12 @@ const EditTask = () => {
           <label htmlFor={`${id}-detail`} className="edit_list__form_label">
             Description
           </label>
-          <textarea
-            id={`${id}-detail`}
-            className="app_input"
-            placeholder="Blah blah blah"
-            value={detail}
-            onChange={(event) => setDetail(event.target.value)}
+          <TextArea
+            id={id}
+            className={'app_input'}
+            placeholder={'Blah blah blah'}
+            detail={detail}
+            handleChange={(event) => setDetail(event.target.value)}
           />
         </fieldset>
         <fieldset className="edit_list__form_field">
