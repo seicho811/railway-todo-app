@@ -52,7 +52,7 @@ const NewList = () => {
           </label>
           <Input
             id={id}
-            title={title}
+            value={title}
             placeholder={'Family'}
             handleChange={(event) => setTitle(event.target.value)}
           />

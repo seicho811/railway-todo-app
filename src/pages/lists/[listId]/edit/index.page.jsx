@@ -7,6 +7,7 @@ import { Input } from '~/components/Input';
 import './index.css';
 import { fetchLists, updateList, deleteList } from '~/store/list';
 import { useId } from '~/hooks/useId';
+import { DiscardButton } from '~/components/DiscardButton';
 
 const EditList = () => {
   const id = useId();
@@ -87,7 +88,7 @@ const EditList = () => {
           </label>
           <Input
             id={id}
-            title={title}
+            value={title}
             placeholder={'Family'}
             handleChange={(event) => setTitle(event.target.value)}
           />
@@ -97,14 +98,12 @@ const EditList = () => {
             Cancel
           </Link>
           <div className="edit_list__form_actions_spacer"></div>
-          <button
-            type="button"
-            className="app_button edit_list__form_actions_delete"
+          <DiscardButton
+            text={'Delete'}
+            className={'app_button edit_list__form_actions_delete'}
             disabled={isSubmitting}
-            onClick={handleDelete}
-          >
-            Delete
-          </button>
+            handleClick={handleDelete}
+          />
           <SubmitButton text={'Update'} disabled={isSubmitting} />
         </div>
       </form>

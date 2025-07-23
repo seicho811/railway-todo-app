@@ -1,5 +1,5 @@
 export const Input = ({
-  title,
+  value,
   placeholder,
   id = null,
   className = null,
@@ -13,7 +13,7 @@ export const Input = ({
       id={id ? `${id}-title` : undefined}
       className={className ?? 'app_input'}
       placeholder={placeholder}
-      value={title}
+      value={value}
       onChange={handleChange}
       onFocus={handleFocus}
       onBlur={handleBlur}

@@ -2,6 +2,8 @@ import { useCallback, useState, useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { BackButton } from '~/components/BackButton';
+import { SubmitButton } from '~/components/SubmitButton';
+import { DiscardButton } from '~/components/DiscardButton';
 import { Input } from '~/components/Input';
 import { TextArea } from '~/components/TextArea';
 import './index.css';
@@ -94,7 +96,7 @@ const EditTask = () => {
           <Input
             id={id}
             className="app_input"
-            title={title}
+            value={title}
             placeholder={'Buy some milk'}
             handleChange={(event) => setTitle(event.target.value)}
           />
@@ -128,17 +130,13 @@ const EditTask = () => {
             Cancel
           </Link>
           <div className="edit_list__form_actions_spacer"></div>
-          <button
-            type="button"
+          <DiscardButton
+            text="Delete"
             className="app_button edit_list__form_actions_delete"
             disabled={isSubmitting}
-            onClick={handleDelete}
-          >
-            Delete
-          </button>
-          <button type="submit" className="app_button" disabled={isSubmitting}>
-            Update
-          </button>
+            handleClick={handleDelete}
+          />
+          <SubmitButton text="Update" />
         </div>
       </form>
     </main>

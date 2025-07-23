@@ -108,8 +108,10 @@ export const TaskCreateForm = () => {
           />
           <div className="task_create_form__actions">
             <DiscardButton
+              text={'Discard'}
+              variant={'secondary'}
               handleBlur={handleBlur}
-              handleDiscard={handleDiscard}
+              handleClick={handleDiscard}
               disabled={(!title && !detail) || formState === 'submitting'}
             />
             <div className="task_create_form__spacer"></div>

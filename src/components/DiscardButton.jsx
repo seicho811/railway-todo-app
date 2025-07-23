@@ -1,12 +1,20 @@
 import { Button } from '~/components/Button';
 
-export const DiscardButton = ({ handleBlur, handleDiscard, disabled }) => {
+export const DiscardButton = ({
+  text,
+  variant,
+  handleBlur,
+  handleClick,
+  disabled,
+  className,
+}) => {
   return (
     <Button
-      text="Discard"
-      variant="secondary"
+      text={text}
+      variant={variant}
+      className={className}
       handleBlur={handleBlur}
-      handleClick={handleDiscard}
+      handleClick={handleClick}
       disabled={disabled}
     />
   );
