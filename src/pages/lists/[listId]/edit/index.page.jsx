@@ -2,6 +2,7 @@ import { useCallback, useState, useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { BackButton } from '~/components/BackButton';
+import { SubmitButton } from '~/components/SubmitButton';
 import './index.css';
 import { fetchLists, updateList, deleteList } from '~/store/list';
 import { useId } from '~/hooks/useId';
@@ -104,9 +105,7 @@ const EditList = () => {
           >
             Delete
           </button>
-          <button type="submit" className="app_button" disabled={isSubmitting}>
-            Update
-          </button>
+          <SubmitButton text={'Update'} disabled={isSubmitting} />
         </div>
       </form>
     </main>

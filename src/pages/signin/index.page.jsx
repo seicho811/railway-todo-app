@@ -3,6 +3,7 @@ import { Navigate, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useLogin } from '~/hooks/useLogin';
 import { useId } from '~/hooks/useId';
+import { SubmitButton } from '~/components/SubmitButton';
 import './index.css';
 
 const SignIn = () => {
@@ -73,9 +74,7 @@ const SignIn = () => {
             Register
           </Link>
           <div className="signin__form_actions_spacer"></div>
-          <button type="submit" className="app_button" disabled={isSubmitting}>
-            Login
-          </button>
+          <SubmitButton text={'Login'} disabled={isSubmitting} />
         </div>
       </form>
     </main>

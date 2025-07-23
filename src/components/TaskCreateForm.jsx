@@ -1,8 +1,10 @@
 import { useCallback, useEffect, useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import './TaskCreateForm.css';
-import { CheckIcon } from '~/icons/CheckIcon';
 import { createTask } from '~/store/task';
+import { AddButton } from '~/components/AddButton';
+import { DiscardButton } from '~/components/DiscardButton';
+import { MarkButton } from '~/components/MarkButton';
 
 export const TaskCreateForm = () => {
   const dispatch = useDispatch();
@@ -15,10 +17,6 @@ export const TaskCreateForm = () => {
   const [title, setTitle] = useState('');
   const [detail, setDetail] = useState('');
   const [done, setDone] = useState(false);
-
-  const handleToggle = useCallback(() => {
-    setDone((prev) => !prev);
-  }, []);
 
   const handleFocus = useCallback(() => {
     setFormState('focused');
@@ -40,6 +38,10 @@ export const TaskCreateForm = () => {
       setDone(false);
     }, 100);
   }, [title, detail]);
+
+  const handleToggle = useCallback(() => {
+    setDone((prev) => !prev);
+  }, []);
 
   const handleDiscard = useCallback(() => {
     setTitle('');
@@ -93,27 +95,13 @@ export const TaskCreateForm = () => {
       data-state={formState}
     >
       <div className="task_create_form__title_container">
-        <button
-          type="button"
-          onClick={handleToggle}
-          className="task_create_form__mark_button"
-          onFocus={handleFocus}
-          onBlur={handleBlur}
-        >
-          {done ? (
-            <div
-              className="task_create_form__mark____complete"
-              aria-label="Completed"
-            >
-              <CheckIcon className="task_create_form__mark____complete_check" />
-            </div>
-          ) : (
-            <div
-              className="task_create_form__mark____incomplete"
-              aria-label="Incomplete"
-            ></div>
-          )}
-        </button>
+        <MarkButton
+          className={'task_create_form'}
+          handleToggle={handleToggle}
+          handleFocus={handleFocus}
+          handleBlur={handleBlur}
+          done={done}
+        />
         <input
           type="text"
           className="task_create_form__title"
@@ -138,25 +126,18 @@ export const TaskCreateForm = () => {
             disabled={formState === 'submitting'}
           />
           <div className="task_create_form__actions">
-            <button
-              type="button"
-              className="app_button"
-              data-variant="secondary"
-              onBlur={handleBlur}
-              onClick={handleDiscard}
+            <DiscardButton
+              handleBlur={handleBlur}
+              handleDiscard={handleDiscard}
               disabled={(!title && !detail) || formState === 'submitting'}
-            >
-              Discard
-            </button>
+            />
             <div className="task_create_form__spacer"></div>
-            <button
-              type="submit"
-              className="app_button"
-              onBlur={handleBlur}
-              disabled={!title || !detail || formState === 'submitting'}
-            >
-              Add
-            </button>
+            <AddButton
+              handleBlur={handleBlur}
+              title={title}
+              detail={detail}
+              formState={formState}
+            />
           </div>
         </div>
       )}
