@@ -3,7 +3,7 @@ import { Navigate, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useLogin } from '~/hooks/useLogin';
 import { useId } from '~/hooks/useId';
-import { SubmitButton } from '~/components/SubmitButton';
+import { SubmitButton } from '~/components/button/SubmitButton';
 import './index.css';
 
 const SignIn = () => {

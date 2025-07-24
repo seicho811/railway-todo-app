@@ -2,9 +2,9 @@ import { useCallback, useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import './TaskCreateForm.css';
 import { createTask } from '~/store/task';
-import { AddButton } from '~/components/AddButton';
-import { DiscardButton } from '~/components/DiscardButton';
-import { MarkButton } from '~/components/MarkButton';
+import { AddButton } from '~/components/button/AddButton';
+import { DiscardButton } from '~/components/button/DiscardButton';
+import { MarkButton } from '~/components/button/MarkButton';
 import { TextArea } from './TextArea';
 import { Input } from '~/components/Input';
 

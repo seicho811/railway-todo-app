@@ -1,5 +1,5 @@
 import { CheckIcon } from '~/icons/CheckIcon';
-import { Button } from '~/components/Button';
+import { Button } from '~/components/button/Button';
 
 export const MarkButton = ({
   handleToggle,

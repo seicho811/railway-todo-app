@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import './index.css';
 import { useSignup } from '~/hooks/useSignup';
 import { useId } from '~/hooks/useId';
-import { SubmitButton } from '~/components/SubmitButton';
+import { SubmitButton } from '~/components/button/SubmitButton';
 
 const SignUp = () => {
   const auth = useSelector((state) => state.auth.token !== null);

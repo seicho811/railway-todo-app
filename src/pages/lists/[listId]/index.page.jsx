@@ -6,7 +6,7 @@ import { TaskCreateForm } from '~/components/TaskCreateForm';
 import { setCurrentList } from '~/store/list';
 import { fetchTasks } from '~/store/task';
 import './index.css';
-import { EditButton } from '~/components/EditButton';
+import { EditButton } from '~/components/button/EditButton';
 
 const ListIndex = () => {
   const dispatch = useDispatch();

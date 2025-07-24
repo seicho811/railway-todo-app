@@ -1,8 +1,8 @@
 import React, { useCallback, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { BackButton } from '~/components/BackButton';
-import { SubmitButton } from '~/components/SubmitButton';
+import { BackButton } from '~/components/button/BackButton';
+import { SubmitButton } from '~/components/button/SubmitButton';
 import { Input } from '~/components/Input';
 import './index.css';
 import { createList, setCurrentList } from '~/store/list/index';

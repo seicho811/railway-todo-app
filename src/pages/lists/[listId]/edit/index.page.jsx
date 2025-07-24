@@ -1,13 +1,13 @@
 import { useCallback, useState, useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { BackButton } from '~/components/BackButton';
-import { SubmitButton } from '~/components/SubmitButton';
+import { BackButton } from '~/components/button/BackButton';
+import { SubmitButton } from '~/components/button/SubmitButton';
 import { Input } from '~/components/Input';
 import './index.css';
 import { fetchLists, updateList, deleteList } from '~/store/list';
 import { useId } from '~/hooks/useId';
-import { DiscardButton } from '~/components/DiscardButton';
+import { DiscardButton } from '~/components/button/DiscardButton';
 
 const EditList = () => {
   const id = useId();

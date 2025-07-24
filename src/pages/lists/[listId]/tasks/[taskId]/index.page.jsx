@@ -1,9 +1,9 @@
 import { useCallback, useState, useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { BackButton } from '~/components/BackButton';
-import { SubmitButton } from '~/components/SubmitButton';
-import { DiscardButton } from '~/components/DiscardButton';
+import { BackButton } from '~/components/button/BackButton';
+import { SubmitButton } from '~/components/button/SubmitButton';
+import { DiscardButton } from '~/components/button/DiscardButton';
 import { Input } from '~/components/Input';
 import { TextArea } from '~/components/TextArea';
 import './index.css';
