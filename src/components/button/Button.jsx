@@ -6,9 +6,9 @@ export const Button = ({
   className = 'app_button',
   type = 'button',
   variant = '',
-  handleClick = () => {},
-  handleFocus = () => {},
-  handleBlur = () => {},
+  onClick = () => {},
+  onFocus = () => {},
+  onBlur = () => {},
   disabled = false,
 }) => {
   return (
@@ -16,9 +16,9 @@ export const Button = ({
       className={className}
       type={type}
       data-variant={variant}
-      onClick={handleClick}
-      onFocus={handleFocus}
-      onBlur={handleBlur}
+      onClick={onClick}
+      onFocus={onFocus}
+      onBlur={onBlur}
       disabled={disabled}
     >
       {children}

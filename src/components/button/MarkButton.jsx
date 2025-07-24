@@ -2,19 +2,19 @@ import { CheckIcon } from '~/icons/CheckIcon';
 import { Button } from '~/components/button/Button';
 
 export const MarkButton = ({
-  handleToggle,
-  handleFocus = () => {},
-  handleBlur = () => {},
-  isSubmitting = false,
+  onClick,
   done,
   className,
+  onFocus = () => {},
+  onBlur = () => {},
+  isSubmitting = false,
 }) => {
   return (
     <Button
-      handleClick={handleToggle}
+      onClick={onClick}
       className={`${className}__mark_button`}
-      handleFocus={handleFocus}
-      handleBlur={handleBlur}
+      onFocus={onFocus}
+      onBlur={onBlur}
       disabled={isSubmitting}
     >
       {done ? (

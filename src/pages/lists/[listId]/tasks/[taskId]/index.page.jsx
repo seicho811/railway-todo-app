@@ -134,7 +134,7 @@ const EditTask = () => {
             text="Delete"
             className="app_button edit_list__form_actions_delete"
             disabled={isSubmitting}
-            handleClick={handleDelete}
+            onClick={handleDelete}
           />
           <SubmitButton text="Update" />
         </div>

@@ -3,8 +3,8 @@ import { Button } from '~/components/button/Button';
 export const DiscardButton = ({
   text,
   variant,
-  handleBlur,
-  handleClick,
+  onBlur,
+  onClick,
   disabled,
   className,
 }) => {
@@ -13,8 +13,8 @@ export const DiscardButton = ({
       text={text}
       variant={variant}
       className={className}
-      handleBlur={handleBlur}
-      handleClick={handleClick}
+      onBlur={onBlur}
+      onClick={onClick}
       disabled={disabled}
     />
   );

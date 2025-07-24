@@ -25,7 +25,7 @@ export const TaskItem = ({ task }) => {
     <div className="task_item">
       <div className="task_item__title_container">
         <MarkButton
-          handleToggle={handleToggle}
+          onClick={handleToggle}
           className={'task_item'}
           isSubmitting={isSubmitting}
           done={done}

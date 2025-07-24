@@ -2,7 +2,7 @@ import { useCallback, useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import './TaskCreateForm.css';
 import { createTask } from '~/store/task';
-import { AddButton } from '~/components/button/AddButton';
+import { SubmitButton } from './button/SubmitButton';
 import { DiscardButton } from '~/components/button/DiscardButton';
 import { MarkButton } from '~/components/button/MarkButton';
 import { TextArea } from './TextArea';
@@ -80,9 +80,9 @@ export const TaskCreateForm = () => {
       <div className="task_create_form__title_container">
         <MarkButton
           className={'task_create_form'}
-          handleToggle={handleToggle}
-          handleFocus={handleFocus}
-          handleBlur={handleBlur}
+          onClick={handleToggle}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
           done={done}
         />
         <Input
@@ -110,16 +110,15 @@ export const TaskCreateForm = () => {
             <DiscardButton
               text={'Discard'}
               variant={'secondary'}
-              handleBlur={handleBlur}
-              handleClick={handleDiscard}
+              onBlur={handleBlur}
+              onClick={handleDiscard}
               disabled={(!title && !detail) || formState === 'submitting'}
             />
             <div className="task_create_form__spacer"></div>
-            <AddButton
-              handleBlur={handleBlur}
-              title={title}
-              detail={detail}
-              formState={formState}
+            <SubmitButton
+              text={'Add'}
+              onBlur={handleBlur}
+              disabled={!title || !detail || formState === 'submitting'}
             />
           </div>
         </div>

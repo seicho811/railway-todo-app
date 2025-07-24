@@ -5,8 +5,8 @@ import { TaskItem } from '~/components/TaskItem';
 import { TaskCreateForm } from '~/components/TaskCreateForm';
 import { setCurrentList } from '~/store/list';
 import { fetchTasks } from '~/store/task';
+import { Button } from '~/components/button/Button';
 import './index.css';
-import { EditButton } from '~/components/button/EditButton';
 
 const ListIndex = () => {
   const dispatch = useDispatch();
@@ -46,7 +46,7 @@ const ListIndex = () => {
         )}
         <div className="tasks_list__title_spacer"></div>
         <Link to={`/lists/${listId}/edit`}>
-          <EditButton />
+          <Button text="Edit..." />
         </Link>
       </div>
       <div className="tasks_list__items">
