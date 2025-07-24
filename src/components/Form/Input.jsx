@@ -1,11 +1,13 @@
+import './Input.css';
+
 export const Input = ({
   value,
   placeholder,
   id = null,
   className = null,
-  handleChange = () => {},
-  handleFocus = () => {},
-  handleBlur = () => {},
+  onChange = () => {},
+  onFocus = () => {},
+  onBlur = () => {},
   disabled = false,
 }) => {
   return (
@@ -14,9 +16,9 @@ export const Input = ({
       className={className ?? 'app_input'}
       placeholder={placeholder}
       value={value}
-      onChange={handleChange}
-      onFocus={handleFocus}
-      onBlur={handleBlur}
+      onChange={onChange}
+      onFocus={onFocus}
+      onBlur={onBlur}
       disabled={disabled}
     />
   );

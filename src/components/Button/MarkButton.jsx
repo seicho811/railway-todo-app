@@ -1,5 +1,5 @@
 import { CheckIcon } from '~/icons/CheckIcon';
-import { Button } from '~/components/button/Button';
+import { Button } from '~/components/Button/Button';
 
 export const MarkButton = ({
   onClick,

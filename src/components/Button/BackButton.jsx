@@ -1,6 +1,6 @@
 import { ChevronIcon } from '~/icons/ChevronIcon';
 import './BackButton.css';
-import { Button } from '~/components/button/Button';
+import { Button } from '~/components/Button/Button';
 
 const onClick = () => {
   window.history.back();

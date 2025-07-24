@@ -1,11 +1,11 @@
 import { useCallback, useState, useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { BackButton } from '~/components/button/BackButton';
-import { SubmitButton } from '~/components/button/SubmitButton';
-import { DiscardButton } from '~/components/button/DiscardButton';
-import { Input } from '~/components/Input';
-import { TextArea } from '~/components/TextArea';
+import { BackButton } from '~/components/Button/BackButton';
+import { SubmitButton } from '~/components/Button/SubmitButton';
+import { DiscardButton } from '~/components/Button/DiscardButton';
+import { Input } from '~/components/Form/Input';
+import { TextArea } from '~/components/Form/TextArea';
 import './index.css';
 import { setCurrentList } from '~/store/list';
 import { fetchTasks, updateTask, deleteTask } from '~/store/task';
@@ -95,10 +95,9 @@ const EditTask = () => {
           </label>
           <Input
             id={id}
-            className="app_input"
             value={title}
             placeholder={'Buy some milk'}
-            handleChange={(event) => setTitle(event.target.value)}
+            onChange={(event) => setTitle(event.target.value)}
           />
         </fieldset>
         <fieldset className="edit_list__form_field">
@@ -108,8 +107,8 @@ const EditTask = () => {
           <TextArea
             id={id}
             placeholder={'Blah blah blah'}
-            detail={detail}
-            handleChange={(event) => setDetail(event.target.value)}
+            value={detail}
+            onChange={(event) => setDetail(event.target.value)}
           />
         </fieldset>
         <fieldset className="edit_list__form_field">

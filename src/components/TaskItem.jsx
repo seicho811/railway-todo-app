@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { PencilIcon } from '~/icons/PencilIcon';
 import { updateTask } from '~/store/task';
 import './TaskItem.css';
-import { MarkButton } from './button/MarkButton';
+import { MarkButton } from './Button/MarkButton';
 
 export const TaskItem = ({ task }) => {
   const dispatch = useDispatch();

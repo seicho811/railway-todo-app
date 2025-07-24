@@ -2,11 +2,11 @@ import { useCallback, useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import './TaskCreateForm.css';
 import { createTask } from '~/store/task';
-import { SubmitButton } from './button/SubmitButton';
-import { DiscardButton } from '~/components/button/DiscardButton';
-import { MarkButton } from '~/components/button/MarkButton';
-import { TextArea } from './TextArea';
-import { Input } from '~/components/Input';
+import { SubmitButton } from './Button/SubmitButton';
+import { DiscardButton } from '~/components/Button/DiscardButton';
+import { MarkButton } from '~/components/Button/MarkButton';
+import { TextArea } from './Form/TextArea';
+import { Input } from '~/components/Form/Input';
 
 export const TaskCreateForm = () => {
   const dispatch = useDispatch();
@@ -89,22 +89,22 @@ export const TaskCreateForm = () => {
           className="task_create_form__title"
           placeholder="Add a new task..."
           value={title}
-          handleChange={(e) => setTitle(e.target.value)}
-          handleFocus={handleFocus}
-          handleBlur={handleBlur}
+          onChange={(e) => setTitle(e.target.value)}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
           disabled={formState === 'submitting'}
         />
       </div>
       {formState !== 'initial' && (
         <div>
           <TextArea
-            detail={detail}
+            value={detail}
             placeholder={'Add a description here...'}
             className={'task_create_form__detail'}
             expandable={true}
-            handleChange={(e) => setDetail(e.target.value)}
-            handleBlur={handleBlur}
-            formState={formState}
+            onChange={(e) => setDetail(e.target.value)}
+            onBlur={handleBlur}
+            disabled={formState === 'submitting'}
           />
           <div className="task_create_form__actions">
             <DiscardButton

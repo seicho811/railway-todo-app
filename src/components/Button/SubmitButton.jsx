@@ -1,4 +1,4 @@
-import { Button } from '~/components/button/Button';
+import { Button } from '~/components/Button/Button';
 
 export function SubmitButton({ text, onBlur, disabled }) {
   return (

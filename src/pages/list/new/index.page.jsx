@@ -1,9 +1,9 @@
 import React, { useCallback, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { BackButton } from '~/components/button/BackButton';
-import { SubmitButton } from '~/components/button/SubmitButton';
-import { Input } from '~/components/Input';
+import { BackButton } from '~/components/Button/BackButton';
+import { SubmitButton } from '~/components/Button/SubmitButton';
+import { Input } from '~/components/Form/Input';
 import './index.css';
 import { createList, setCurrentList } from '~/store/list/index';
 import { useId } from '~/hooks/useId';
@@ -54,7 +54,7 @@ const NewList = () => {
             id={id}
             value={title}
             placeholder={'Family'}
-            handleChange={(event) => setTitle(event.target.value)}
+            onChange={(event) => setTitle(event.target.value)}
           />
         </fieldset>
         <div className="new_list__form_actions">

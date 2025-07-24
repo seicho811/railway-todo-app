@@ -1,15 +1,15 @@
 import { useState, useEffect } from 'react';
 
 export const TextArea = ({
-  detail,
-  handleChange,
+  value,
+  onChange,
   placeholder,
   id = null,
   className = null,
   rows = null,
   expandable = false,
-  handleBlur = () => {},
-  formState = '',
+  onBlur = () => {},
+  disabled = false,
 }) => {
   const [elemTextarea, setElemTextarea] = useState(null);
 
@@ -37,10 +37,10 @@ export const TextArea = ({
       rows={rows ?? 1}
       className={className ?? 'app_input'}
       placeholder={placeholder}
-      value={detail}
-      onChange={handleChange}
-      onBlur={handleBlur}
-      disabled={formState === 'submitting'}
+      value={value}
+      onChange={onChange}
+      onBlur={onBlur}
+      disabled={disabled}
     />
   );
 };

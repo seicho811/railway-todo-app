@@ -1,13 +1,13 @@
 import { useCallback, useState, useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { BackButton } from '~/components/button/BackButton';
-import { SubmitButton } from '~/components/button/SubmitButton';
-import { Input } from '~/components/Input';
+import { BackButton } from '~/components/Button/BackButton';
+import { SubmitButton } from '~/components/Button/SubmitButton';
+import { Input } from '~/components/Form/Input';
 import './index.css';
 import { fetchLists, updateList, deleteList } from '~/store/list';
 import { useId } from '~/hooks/useId';
-import { DiscardButton } from '~/components/button/DiscardButton';
+import { DiscardButton } from '~/components/Button/DiscardButton';
 
 const EditList = () => {
   const id = useId();
@@ -90,7 +90,7 @@ const EditList = () => {
             id={id}
             value={title}
             placeholder={'Family'}
-            handleChange={(event) => setTitle(event.target.value)}
+            onChange={(event) => setTitle(event.target.value)}
           />
         </fieldset>
         <div className="edit_list__form_actions">
