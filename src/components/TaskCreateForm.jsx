@@ -18,6 +18,7 @@ export const TaskCreateForm = () => {
   const [title, setTitle] = useState('');
   const [detail, setDetail] = useState('');
   const [done, setDone] = useState(false);
+  const [limit, setLimit] = useState('');
 
   const handleFocus = useCallback(() => {
     setFormState('focused');
@@ -37,6 +38,7 @@ export const TaskCreateForm = () => {
 
       setFormState('initial');
       setDone(false);
+      setLimit('');
     }, 100);
   }, [title, detail]);
 
@@ -49,6 +51,7 @@ export const TaskCreateForm = () => {
     setDetail('');
     setFormState('initial');
     setDone(false);
+    setLimit('');
   }, []);
 
   const onSubmit = useCallback(
@@ -56,8 +59,9 @@ export const TaskCreateForm = () => {
       event.preventDefault();
 
       setFormState('submitting');
+      const isoLimit = new Date(limit).toISOString();
 
-      void dispatch(createTask({ title, detail, done }))
+      void dispatch(createTask({ title, detail, done, limit: isoLimit }))
         .unwrap()
         .then(() => {
           handleDiscard();
@@ -67,7 +71,7 @@ export const TaskCreateForm = () => {
           setFormState('focused');
         });
     },
-    [title, detail, done]
+    [title, detail, done, limit]
   );
 
   return (
@@ -105,6 +109,11 @@ export const TaskCreateForm = () => {
             onChange={(e) => setDetail(e.target.value)}
             onBlur={handleBlur}
             disabled={formState === 'submitting'}
+          />
+          <Input
+            type="datetime-local"
+            value={limit}
+            onChange={(event) => setLimit(event.target.value)}
           />
           <div className="task_create_form__actions">
             <DiscardButton

@@ -10,7 +10,7 @@ export const TaskItem = ({ task }) => {
   const dispatch = useDispatch();
 
   const { listId } = useParams();
-  const { id, title, detail, done } = task;
+  const { id, title, detail, done, limit } = task;
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -42,6 +42,11 @@ export const TaskItem = ({ task }) => {
         </Link>
       </div>
       <div className="task_item__detail">{detail}</div>
+      {limit ? (
+        <time dateTime={limit}>{limit.slice(0, 16).replace('T', ' ')}</time>
+      ) : (
+        <span>期限なし</span>
+      )}
     </div>
   );
 };
