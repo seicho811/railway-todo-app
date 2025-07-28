@@ -6,10 +6,14 @@ import { updateTask } from '~/store/task';
 import './TaskItem.css';
 import { MarkButton } from './Button/MarkButton';
 
+const getJSTDate = (date = new Date()) => {
+  return new Date(date.toLocaleDateString('ja-JP', { timeZone: 'Asia/Tokyo' }));
+};
+
 const getLimitGap = (limit) => {
-  const today = new Date();
-  const limitDate = new Date(limit);
-  const gap = limitDate.getTime() - today.getTime();
+  const todayJST = getJSTDate();
+  const limitJST = getJSTDate(new Date(limit));
+  const gap = limitJST.getTime() - todayJST.getTime();
   const gapDays = Math.ceil(gap / (1000 * 60 * 60 * 24));
   if (gapDays > 0) {
     return `${gapDays}日後`;
@@ -35,7 +39,19 @@ export const TaskItem = ({ task }) => {
     });
   }, [id, done]);
 
-  const isOverdue = limit && new Date(limit) < new Date();
+  const isOverdue = limit && getJSTDate(new Date(limit)) < getJSTDate();
+
+  const formattedLimit = limit
+    ? new Date(limit).toLocaleString('ja-JP', {
+        timeZone: 'Asia/Tokyo',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false,
+      })
+    : '';
 
   return (
     <div className="task_item">
@@ -64,17 +80,7 @@ export const TaskItem = ({ task }) => {
           style={isOverdue ? { color: 'red' } : undefined}
         >
           <span className="task_item__limit_gap">{`[${getLimitGap(limit)}]`}</span>
-          <time dateTime={limit}>
-            {new Date(limit).toLocaleString('ja-JP', {
-              timeZone: 'Asia/Tokyo',
-              year: 'numeric',
-              month: '2-digit',
-              day: '2-digit',
-              hour: '2-digit',
-              minute: '2-digit',
-              hour12: false,
-            })}
-          </time>
+          <time dateTime={limit}>{formattedLimit}</time>
         </div>
       ) : (
         <div className="task_item__no_limit">

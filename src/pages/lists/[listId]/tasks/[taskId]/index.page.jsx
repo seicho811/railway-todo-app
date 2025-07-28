@@ -32,7 +32,21 @@ const EditTask = () => {
 
   useEffect(() => {
     //LimitがUndefinedの場合か確認して初期化
-    const initialLimit = task.limit ? task.limit.slice(0, 16) : '';
+    const initialLimit = task.limit
+      ? new Date(task.limit)
+          .toLocaleDateString('ja-JP', {
+            timeZone: 'Asia/Tokyo',
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: false,
+          })
+          .replace(/\//g, '-')
+          .replace(' ', 'T')
+      : '';
+
     if (task) {
       setTitle(task.title);
       setDetail(task.detail);
