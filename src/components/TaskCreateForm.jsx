@@ -59,7 +59,7 @@ export const TaskCreateForm = () => {
       event.preventDefault();
 
       setFormState('submitting');
-      const isoLimit = new Date(limit).toISOString();
+      const isoLimit = limit ? new Date(limit).toISOString() : null;
 
       void dispatch(createTask({ title, detail, done, limit: isoLimit }))
         .unwrap()

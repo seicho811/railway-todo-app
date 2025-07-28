@@ -1,7 +1,8 @@
 import { useCallback, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { BackButton } from '~/components/Button/BackButton';
+import { ChevronIcon } from '~/icons/ChevronIcon';
+import { Button } from '~/components/Button/Button';
 import { SubmitButton } from '~/components/Button/SubmitButton';
 import { DiscardButton } from '~/components/Button/DiscardButton';
 import { Input } from '~/components/Form/Input';
@@ -28,6 +29,8 @@ const ModalEditTask = ({ taskId, onClose }) => {
   const task = useSelector((state) =>
     state.task.tasks?.find((task) => task.id === taskId)
   );
+
+  document.documentElement.classList.add('modal_open');
 
   useEffect(() => {
     if (!task) {
@@ -57,11 +60,6 @@ const ModalEditTask = ({ taskId, onClose }) => {
     }
   }, [task]);
 
-  useEffect(() => {
-    void dispatch(setCurrentList(listId));
-    void dispatch(fetchTasks());
-  }, [listId]);
-
   const onSubmit = useCallback(
     (event) => {
       event.preventDefault();
@@ -90,30 +88,27 @@ const ModalEditTask = ({ taskId, onClose }) => {
     if (!window.confirm('Are you sure you want to delete this task?')) {
       return;
     }
-
-    setIsSubmitting(true);
+    onClose();
 
     void dispatch(deleteTask({ id: taskId }))
       .unwrap()
-      .then(() => {
-        onClose();
-      })
       .catch((err) => {
         setErrorMessage(err.message);
-      })
-      .finally(() => {
-        setIsSubmitting(false);
       });
   }, [taskId]);
 
   return (
-    <main className="edit_list">
-      <BackButton />
-      <h2 className="edit_list__title">Edit List</h2>
-      <p className="edit_list__error">{errorMessage}</p>
-      <form className="edit_list__form" onSubmit={onSubmit}>
-        <fieldset className="edit_list__form_field">
-          <label htmlFor={`${id}-title`} className="edit_list__form_label">
+    <main className="edit_task">
+      <Button onClick={() => onClose()} className="back_button">
+        <ChevronIcon className="back_button__icon" />
+        Back
+      </Button>
+
+      <h2 className="edit_task__title">Edit Task</h2>
+      <p className="edit_task__error">{errorMessage}</p>
+      <form className="edit_task__form" onSubmit={onSubmit}>
+        <fieldset className="edit_task__form_field">
+          <label htmlFor={`${id}-title`} className="edit_task__form_label">
             Title
           </label>
           <Input
@@ -123,8 +118,8 @@ const ModalEditTask = ({ taskId, onClose }) => {
             onChange={(event) => setTitle(event.target.value)}
           />
         </fieldset>
-        <fieldset className="edit_list__form_field">
-          <label htmlFor={`${id}-detail`} className="edit_list__form_label">
+        <fieldset className="edit_task__form_field">
+          <label htmlFor={`${id}-detail`} className="edit_task__form_label">
             Description
           </label>
           <TextArea
@@ -134,7 +129,7 @@ const ModalEditTask = ({ taskId, onClose }) => {
             onChange={(event) => setDetail(event.target.value)}
           />
         </fieldset>
-        <fieldset className="edit_list__form_field">
+        <fieldset className="edit_task__form_field">
           <label htmlFor={`${id}-duedate`}>Due data</label>
           <Input
             type="datetime-local"
@@ -142,8 +137,8 @@ const ModalEditTask = ({ taskId, onClose }) => {
             onChange={(event) => setLimit(event.target.value)}
           />
         </fieldset>
-        <fieldset className="edit_list__form_field">
-          <label htmlFor={`${id}-done`} className="edit_list__form_label">
+        <fieldset className="edit_task__form_field">
+          <label htmlFor={`${id}-done`} className="edit_task__form_label">
             Is Done
           </label>
           <div>
@@ -155,7 +150,7 @@ const ModalEditTask = ({ taskId, onClose }) => {
             />
           </div>
         </fieldset>
-        <div className="edit_list__form_actions">
+        <div className="edit_task__form_actions">
           <button
             data-variant="secondary"
             className="app_button"
@@ -163,10 +158,10 @@ const ModalEditTask = ({ taskId, onClose }) => {
           >
             Cancel
           </button>
-          <div className="edit_list__form_actions_spacer"></div>
+          <div className="edit_task__form_actions_spacer"></div>
           <DiscardButton
             text="Delete"
-            className="app_button edit_list__form_actions_delete"
+            className="app_button edit_task__form_actions_delete"
             disabled={isSubmitting}
             onClick={handleDelete}
           />

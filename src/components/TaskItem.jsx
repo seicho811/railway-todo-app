@@ -76,7 +76,7 @@ export const TaskItem = ({ task, onClick }) => {
           className="task_item__limit"
           style={isOverdue ? { color: 'red' } : undefined}
         >
-          <span className="task_item__limit_gap">{`[${getLimitGap(limit)}]`}</span>
+          <span className="task_item__limit_gap">{`Due: [${getLimitGap(limit)}]`}</span>
           <time dateTime={limit}>{formattedLimit}</time>
         </div>
       ) : (

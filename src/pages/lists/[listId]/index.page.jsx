@@ -76,6 +76,7 @@ const ListIndex = () => {
           onClose={() => {
             setIsModalOpen(false);
             setSelectedTaskId(null);
+            document.documentElement.classList.remove('modal_open');
           }}
         >
           <ModalEditTask
@@ -83,6 +84,7 @@ const ListIndex = () => {
             onClose={() => {
               setIsModalOpen(false);
               setSelectedTaskId(null);
+              document.documentElement.classList.remove('modal_open');
             }}
           />
         </Modal>
