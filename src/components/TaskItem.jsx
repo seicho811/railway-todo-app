@@ -24,7 +24,7 @@ const getLimitGap = (limit) => {
   return `${Math.abs(gapDays)}日超過`;
 };
 
-export const TaskItem = ({ task }) => {
+export const TaskItem = ({ task, onClick }) => {
   const dispatch = useDispatch();
 
   const { listId } = useParams();
@@ -66,12 +66,9 @@ export const TaskItem = ({ task }) => {
           {title}
         </div>
         <div aria-hidden className="task_item__title_spacer"></div>
-        <Link
-          to={`/lists/${listId}/tasks/${id}`}
-          className="task_item__title_action"
-        >
+        <div className="task_item__title_action" onClick={onClick}>
           <PencilIcon aria-label="Edit" />
-        </Link>
+        </div>
       </div>
       <div className="task_item__detail">{detail}</div>
       {limit ? (
