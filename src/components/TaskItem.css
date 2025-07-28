@@ -74,3 +74,22 @@
   font-size: 1rem;
   color: var(--slate-500);
 }
+
+.task_item__limit {
+  font-size: 0.875rem;
+  color: var(--slate-600);
+  display: flex;
+  align-items: center;
+}
+
+.task_item__limit_gap {
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+  font-weight: bold;
+}
+
+.task_item__no_limit {
+  font-size: 0.875rem;
+  color: var(--slate-400);
+  margin-top: 0.5rem;
+}

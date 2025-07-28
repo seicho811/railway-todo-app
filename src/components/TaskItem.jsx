@@ -35,6 +35,8 @@ export const TaskItem = ({ task }) => {
     });
   }, [id, done]);
 
+  const isOverdue = limit && new Date(limit) < new Date();
+
   return (
     <div className="task_item">
       <div className="task_item__title_container">
@@ -57,7 +59,10 @@ export const TaskItem = ({ task }) => {
       </div>
       <div className="task_item__detail">{detail}</div>
       {limit ? (
-        <div className="task_item__limit">
+        <div
+          className="task_item__limit"
+          style={isOverdue ? { color: 'red' } : undefined}
+        >
           <span className="task_item__limit_gap">{`[${getLimitGap(limit)}]`}</span>
           <time dateTime={limit}>
             {new Date(limit).toLocaleString('ja-JP', {
