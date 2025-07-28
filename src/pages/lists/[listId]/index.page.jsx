@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { TaskItem } from '~/components/TaskItem';
@@ -7,8 +7,12 @@ import { setCurrentList } from '~/store/list';
 import { fetchTasks } from '~/store/task';
 import { Button } from '~/components/Button/Button';
 import './index.css';
+import { Modal } from '~/components/Modal';
+import ModalEditTask from '~/components/ModalEditTask';
 
 const ListIndex = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedTaskId, setSelectedTaskId] = useState(null);
   const dispatch = useDispatch();
   const { listId } = useParams();
 
@@ -52,12 +56,39 @@ const ListIndex = () => {
       <div className="tasks_list__items">
         <TaskCreateForm />
         {tasks?.map((task) => {
-          return <TaskItem key={task.id} task={task} />;
+          return (
+            <TaskItem
+              key={task.id}
+              task={task}
+              onClick={() => {
+                setIsModalOpen(true);
+                setSelectedTaskId(task.id);
+              }}
+            />
+          );
         })}
         {tasks?.length === 0 && (
           <div className="tasks_list__items__empty">No tasks yet!</div>
         )}
       </div>
+      {isModalOpen && selectedTaskId && (
+        <Modal
+          onClose={() => {
+            setIsModalOpen(false);
+            setSelectedTaskId(null);
+            document.documentElement.classList.remove('modal_open');
+          }}
+        >
+          <ModalEditTask
+            taskId={selectedTaskId}
+            onClose={() => {
+              setIsModalOpen(false);
+              setSelectedTaskId(null);
+              document.documentElement.classList.remove('modal_open');
+            }}
+          />
+        </Modal>
+      )}
     </div>
   );
 };

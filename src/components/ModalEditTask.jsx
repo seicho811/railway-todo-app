@@ -1,21 +1,21 @@
 import { useCallback, useState, useEffect } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { BackButton } from '~/components/Button/BackButton';
+import { ChevronIcon } from '~/icons/ChevronIcon';
+import { Button } from '~/components/Button/Button';
 import { SubmitButton } from '~/components/Button/SubmitButton';
 import { DiscardButton } from '~/components/Button/DiscardButton';
 import { Input } from '~/components/Form/Input';
 import { TextArea } from '~/components/Form/TextArea';
-import './index.css';
 import { setCurrentList } from '~/store/list';
 import { fetchTasks, updateTask, deleteTask } from '~/store/task';
 import { useId } from '~/hooks/useId';
+import './ModalEditTask.css';
 
-const EditTask = () => {
+const ModalEditTask = ({ taskId, onClose }) => {
   const id = useId();
+  const { listId } = useParams();
 
-  const { listId, taskId } = useParams();
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const [title, setTitle] = useState('');
@@ -30,7 +30,12 @@ const EditTask = () => {
     state.task.tasks?.find((task) => task.id === taskId)
   );
 
+  document.documentElement.classList.add('modal_open');
+
   useEffect(() => {
+    if (!task) {
+      return;
+    }
     //LimitがUndefinedの場合か確認して初期化
     const initialLimit = task.limit
       ? new Date(task.limit)
@@ -55,11 +60,6 @@ const EditTask = () => {
     }
   }, [task]);
 
-  useEffect(() => {
-    void dispatch(setCurrentList(listId));
-    void dispatch(fetchTasks());
-  }, [listId]);
-
   const onSubmit = useCallback(
     (event) => {
       event.preventDefault();
@@ -72,7 +72,7 @@ const EditTask = () => {
       )
         .unwrap()
         .then(() => {
-          navigate(`/lists/${listId}`);
+          onClose();
         })
         .catch((err) => {
           setErrorMessage(err.message);
@@ -88,30 +88,27 @@ const EditTask = () => {
     if (!window.confirm('Are you sure you want to delete this task?')) {
       return;
     }
-
-    setIsSubmitting(true);
+    onClose();
 
     void dispatch(deleteTask({ id: taskId }))
       .unwrap()
-      .then(() => {
-        navigate(`/`);
-      })
       .catch((err) => {
         setErrorMessage(err.message);
-      })
-      .finally(() => {
-        setIsSubmitting(false);
       });
   }, [taskId]);
 
   return (
-    <main className="edit_list">
-      <BackButton />
-      <h2 className="edit_list__title">Edit List</h2>
-      <p className="edit_list__error">{errorMessage}</p>
-      <form className="edit_list__form" onSubmit={onSubmit}>
-        <fieldset className="edit_list__form_field">
-          <label htmlFor={`${id}-title`} className="edit_list__form_label">
+    <main className="edit_task">
+      <Button onClick={() => onClose()} className="back_button">
+        <ChevronIcon className="back_button__icon" />
+        Back
+      </Button>
+
+      <h2 className="edit_task__title">Edit Task</h2>
+      <p className="edit_task__error">{errorMessage}</p>
+      <form className="edit_task__form" onSubmit={onSubmit}>
+        <fieldset className="edit_task__form_field">
+          <label htmlFor={`${id}-title`} className="edit_task__form_label">
             Title
           </label>
           <Input
@@ -121,8 +118,8 @@ const EditTask = () => {
             onChange={(event) => setTitle(event.target.value)}
           />
         </fieldset>
-        <fieldset className="edit_list__form_field">
-          <label htmlFor={`${id}-detail`} className="edit_list__form_label">
+        <fieldset className="edit_task__form_field">
+          <label htmlFor={`${id}-detail`} className="edit_task__form_label">
             Description
           </label>
           <TextArea
@@ -132,7 +129,7 @@ const EditTask = () => {
             onChange={(event) => setDetail(event.target.value)}
           />
         </fieldset>
-        <fieldset className="edit_list__form_field">
+        <fieldset className="edit_task__form_field">
           <label htmlFor={`${id}-duedate`}>Due data</label>
           <Input
             type="datetime-local"
@@ -140,8 +137,8 @@ const EditTask = () => {
             onChange={(event) => setLimit(event.target.value)}
           />
         </fieldset>
-        <fieldset className="edit_list__form_field">
-          <label htmlFor={`${id}-done`} className="edit_list__form_label">
+        <fieldset className="edit_task__form_field">
+          <label htmlFor={`${id}-done`} className="edit_task__form_label">
             Is Done
           </label>
           <div>
@@ -153,14 +150,18 @@ const EditTask = () => {
             />
           </div>
         </fieldset>
-        <div className="edit_list__form_actions">
-          <Link to="/" data-variant="secondary" className="app_button">
+        <div className="edit_task__form_actions">
+          <button
+            data-variant="secondary"
+            className="app_button"
+            onClick={onClose}
+          >
             Cancel
-          </Link>
-          <div className="edit_list__form_actions_spacer"></div>
+          </button>
+          <div className="edit_task__form_actions_spacer"></div>
           <DiscardButton
             text="Delete"
-            className="app_button edit_list__form_actions_delete"
+            className="app_button edit_task__form_actions_delete"
             disabled={isSubmitting}
             onClick={handleDelete}
           />
@@ -171,4 +172,4 @@ const EditTask = () => {
   );
 };
 
-export default EditTask;
+export default ModalEditTask;
