@@ -58,11 +58,23 @@ export const TaskItem = ({ task }) => {
       <div className="task_item__detail">{detail}</div>
       {limit ? (
         <div className="task_item__limit">
-          <time dateTime={limit}>{limit.slice(0, 16).replace('T', ' ')}</time>
-          <span className="task_item__limit_gap">{`: ${getLimitGap(limit)}`}</span>
+          <span className="task_item__limit_gap">{`[${getLimitGap(limit)}]`}</span>
+          <time dateTime={limit}>
+            {new Date(limit).toLocaleString('ja-JP', {
+              timeZone: 'Asia/Tokyo',
+              year: 'numeric',
+              month: '2-digit',
+              day: '2-digit',
+              hour: '2-digit',
+              minute: '2-digit',
+              hour12: false,
+            })}
+          </time>
         </div>
       ) : (
-        <span>期限なし</span>
+        <div className="task_item__no_limit">
+          <span>期限なし</span>
+        </div>
       )}
     </div>
   );
