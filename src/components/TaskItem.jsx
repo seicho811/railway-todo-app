@@ -6,6 +6,20 @@ import { updateTask } from '~/store/task';
 import './TaskItem.css';
 import { MarkButton } from './Button/MarkButton';
 
+const getLimitGap = (limit) => {
+  const today = new Date();
+  const limitDate = new Date(limit);
+  const gap = limitDate.getTime() - today.getTime();
+  const gapDays = Math.ceil(gap / (1000 * 60 * 60 * 24));
+  if (gapDays > 0) {
+    return `${gapDays}日後`;
+  }
+  if (gapDays === 0) {
+    return '今日中';
+  }
+  return `${Math.abs(gapDays)}日超過`;
+};
+
 export const TaskItem = ({ task }) => {
   const dispatch = useDispatch();
 
@@ -43,7 +57,10 @@ export const TaskItem = ({ task }) => {
       </div>
       <div className="task_item__detail">{detail}</div>
       {limit ? (
-        <time dateTime={limit}>{limit.slice(0, 16).replace('T', ' ')}</time>
+        <div className="task_item__limit">
+          <time dateTime={limit}>{limit.slice(0, 16).replace('T', ' ')}</time>
+          <span className="task_item__limit_gap">{`: ${getLimitGap(limit)}`}</span>
+        </div>
       ) : (
         <span>期限なし</span>
       )}
