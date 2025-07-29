@@ -9,6 +9,7 @@ import { Input } from '~/components/Form/Input';
 import { TextArea } from '~/components/Form/TextArea';
 import { updateTask, deleteTask } from '~/store/task';
 import { useId } from '~/hooks/useId';
+import { formatUtcStringToJst } from '~/utils/dateUtils';
 import './ModalEditTask.css';
 
 const ModalEditTask = ({ taskId, handleClose }) => {
@@ -35,18 +36,7 @@ const ModalEditTask = ({ taskId, handleClose }) => {
     }
     //LimitがUndefinedの場合か確認して初期化
     const initialLimit = task.limit
-      ? new Date(task.limit)
-          .toLocaleDateString('ja-JP', {
-            timeZone: 'Asia/Tokyo',
-            year: 'numeric',
-            month: '2-digit',
-            day: '2-digit',
-            hour: '2-digit',
-            minute: '2-digit',
-            hour12: false,
-          })
-          .replace(/\//g, '-')
-          .replace(' ', 'T')
+      ? formatUtcStringToJst(task.limit).replace(/\//g, '-').replace(' ', 'T')
       : '';
 
     if (task) {

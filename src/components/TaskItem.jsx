@@ -1,14 +1,11 @@
 import { useState, useCallback } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { PencilIcon } from '~/icons/PencilIcon';
 import { updateTask } from '~/store/task';
 import './TaskItem.css';
 import { MarkButton } from './Button/MarkButton';
-
-const getJSTDate = (date = new Date()) => {
-  return new Date(date.toLocaleDateString('ja-JP', { timeZone: 'Asia/Tokyo' }));
-};
+import { formatUtcStringToJst, getJSTDate } from '~/utils/dateUtils';
 
 const getLimitGap = (limit) => {
   const todayJST = getJSTDate();
@@ -41,17 +38,7 @@ export const TaskItem = ({ task, onClick }) => {
 
   const isOverdue = limit && getJSTDate(new Date(limit)) < getJSTDate();
 
-  const formattedLimit = limit
-    ? new Date(limit).toLocaleString('ja-JP', {
-        timeZone: 'Asia/Tokyo',
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: false,
-      })
-    : '';
+  const formattedLimit = limit ? formatUtcToJst(limit) : '';
 
   return (
     <div className="task_item">
