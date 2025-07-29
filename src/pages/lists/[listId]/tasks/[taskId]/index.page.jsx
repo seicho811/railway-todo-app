@@ -21,6 +21,7 @@ const EditTask = () => {
   const [title, setTitle] = useState('');
   const [detail, setDetail] = useState('');
   const [done, setDone] = useState(false);
+  const [limit, setLimit] = useState('');
 
   const [errorMessage, setErrorMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -30,10 +31,27 @@ const EditTask = () => {
   );
 
   useEffect(() => {
+    //LimitがUndefinedの場合か確認して初期化
+    const initialLimit = task.limit
+      ? new Date(task.limit)
+          .toLocaleDateString('ja-JP', {
+            timeZone: 'Asia/Tokyo',
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: false,
+          })
+          .replace(/\//g, '-')
+          .replace(' ', 'T')
+      : '';
+
     if (task) {
       setTitle(task.title);
       setDetail(task.detail);
       setDone(task.done);
+      setLimit(initialLimit);
     }
   }, [task]);
 
@@ -45,10 +63,13 @@ const EditTask = () => {
   const onSubmit = useCallback(
     (event) => {
       event.preventDefault();
-
       setIsSubmitting(true);
 
-      void dispatch(updateTask({ id: taskId, title, detail, done }))
+      const isoLimit = limit ? new Date(limit).toISOString() : null;
+
+      void dispatch(
+        updateTask({ id: taskId, title, detail, done, limit: isoLimit })
+      )
         .unwrap()
         .then(() => {
           navigate(`/lists/${listId}`);
@@ -60,7 +81,7 @@ const EditTask = () => {
           setIsSubmitting(false);
         });
     },
-    [title, taskId, listId, detail, done]
+    [title, taskId, listId, detail, done, limit]
   );
 
   const handleDelete = useCallback(() => {
@@ -109,6 +130,14 @@ const EditTask = () => {
             placeholder={'Blah blah blah'}
             value={detail}
             onChange={(event) => setDetail(event.target.value)}
+          />
+        </fieldset>
+        <fieldset className="edit_list__form_field">
+          <label htmlFor={`${id}-duedate`}>Due data</label>
+          <Input
+            type="datetime-local"
+            value={limit}
+            onChange={(event) => setLimit(event.target.value)}
           />
         </fieldset>
         <fieldset className="edit_list__form_field">
