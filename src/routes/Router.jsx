@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { BrowserRouter, Route, Navigate, Routes } from 'react-router-dom';
-import { Sidebar } from '~/components/Sidebar';
+import { Sidebar } from '~/components/navigation/Sidebar';
 import Home from '~/pages/index.page';
 import NotFound from '~/pages/404';
 import SignIn from '~/pages/signin/index.page';
