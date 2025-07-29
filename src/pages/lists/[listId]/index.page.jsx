@@ -76,17 +76,11 @@ const ListIndex = () => {
           onClose={() => {
             setIsModalOpen(false);
             setSelectedTaskId(null);
-            document.documentElement.classList.remove('modal_open');
           }}
         >
-          <ModalEditTask
-            taskId={selectedTaskId}
-            onClose={() => {
-              setIsModalOpen(false);
-              setSelectedTaskId(null);
-              document.documentElement.classList.remove('modal_open');
-            }}
-          />
+          {(handleClose) => (
+            <ModalEditTask taskId={selectedTaskId} handleClose={handleClose} />
+          )}
         </Modal>
       )}
     </div>
