@@ -54,7 +54,7 @@ export const Sidebar = () => {
           </button>
           {isModalOpen && (
             <>
-              <Drawer onClose={() => setIsModalOpen(false)}>
+              <Drawer open={isModalOpen} onClose={() => setIsModalOpen(false)}>
                 {(onClose) => (
                   <HambergerMenu
                     lists={lists}

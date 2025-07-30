@@ -3,7 +3,6 @@ import useMediaQuery from '~/hooks/useMediaQuery';
 import MenuList from '~/components/navigation/MenuList';
 import AccountSection from './AccountSection';
 import Login from './Login';
-import './HambergerMenu.css';
 
 const HambergerMenu = ({ lists, activeId, shouldHighlight, onClose }) => {
   const isMobile = useMediaQuery('(max-width: 768px)');
