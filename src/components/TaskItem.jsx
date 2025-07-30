@@ -38,7 +38,7 @@ export const TaskItem = ({ task, onClick }) => {
 
   const isOverdue = limit && getJSTDate(new Date(limit)) < getJSTDate();
 
-  const formattedLimit = limit ? formatUtcToJst(limit) : '';
+  const formattedLimit = limit ? formatUtcStringToJst(limit) : '';
 
   return (
     <div className="task_item">
