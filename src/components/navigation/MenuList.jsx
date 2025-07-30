@@ -8,11 +8,12 @@ const MenuList = ({
   activeId,
   layout = 'desktop',
   shouldHighlight = false,
+  onClose = () => {},
 }) => {
   if (!lists) return;
 
   const baseClass =
-    layout == 'mobile' ? 'sidebar__lists_item_mobile' : 'sidebar__lists';
+    layout == 'mobile' ? 'sidebar__lists_mobile' : 'sidebar__lists';
   return (
     <>
       <div className={`${baseClass}`}>
@@ -20,21 +21,25 @@ const MenuList = ({
         <ul className={`${baseClass}_items`}>
           {lists.map((listItem) => (
             <li key={listItem.id}>
-              <Link
-                data-active={shouldHighlight && listItem.id === activeId}
-                to={`/lists/${listItem.id}`}
-                className={`${baseClass}_item`}
-              >
-                <ListIcon aria-hidden className={`${baseClass}_icon`} />
-                {listItem.title}
-              </Link>
+              <div onClick={onClose}>
+                <Link
+                  data-active={shouldHighlight && listItem.id === activeId}
+                  to={`/lists/${listItem.id}`}
+                  className={`${baseClass}_item`}
+                >
+                  <ListIcon aria-hidden className={`${baseClass}_icon`} />
+                  {listItem.title}
+                </Link>
+              </div>
             </li>
           ))}
           <li>
-            <Link to="/list/new" className={`${baseClass}_button`}>
-              <PlusIcon className={`${baseClass}_plus_icon`} />
-              New List...
-            </Link>
+            <div onClick={onClose}>
+              <Link to="/list/new" className={`${baseClass}_button`}>
+                <PlusIcon className={`${baseClass}_plus_icon`} />
+                New List...
+              </Link>
+            </div>
           </li>
         </ul>
       </div>

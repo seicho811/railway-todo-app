@@ -72,3 +72,9 @@
 .sidebar__login {
   margin-top: 1.5rem;
 }
+
+.hamburger__toggle {
+  position: fixed;
+  top: 0.5rem;
+  right: 0.5rem;
+}

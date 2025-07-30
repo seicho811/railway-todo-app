@@ -73,3 +73,66 @@
 .sidebar__lists_plus_icon {
   fill: currentColor;
 }
+
+/* Mobile styles */
+
+.sidebar__lists_mobile {
+  margin-top: 0;
+}
+
+.sidebar__lists_mobile_title {
+  display: none; /* Hide title on mobile due to title being on header */
+}
+
+.sidebar__lists_mobile_items {
+  margin-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.sidebar__lists_mobile_item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 0.5rem;
+  color: var(--slate-600);
+  border-radius: 0.25rem;
+}
+
+.sidebar__lists_mobile_item[data-active='true'] {
+  font-weight: 700;
+  background-color: var(--slate-200);
+  color: var(--slate-600);
+}
+
+.sidebar__lists_mobile_item:not([data-active='true']):active {
+  background-color: var(--slate-100);
+}
+
+.sidebar__lists_mobile_icon {
+  fill: currentColor;
+}
+
+.sidebar__lists_mobile_button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 44px;
+  background-color: #ffffff;
+  color: var(--slate-600);
+  border: 1px solid var(--slate-300);
+  padding: 0.5rem;
+  gap: 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.sidebar__lists_mobile_button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.5);
+}
+
+.sidebar__lists_mobile_plus_icon {
+  fill: currentColor;
+}
