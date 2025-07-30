@@ -9,6 +9,7 @@ import { Button } from '~/components/Button/Button';
 import './index.css';
 import { Modal } from '~/components/Modal';
 import ModalEditTask from '~/components/ModalEditTask';
+import ModalEditList from '~/components/ModalEditList';
 
 const ListIndex = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -49,9 +50,7 @@ const ListIndex = () => {
           </span>
         )}
         <div className="tasks_list__title_spacer"></div>
-        <Link to={`/lists/${listId}/edit`}>
-          <Button text="Edit..." />
-        </Link>
+        <Button text="Edit..." onClick={() => setIsModalOpen(true)} />
       </div>
       <div className="tasks_list__items">
         <TaskCreateForm />
@@ -71,22 +70,23 @@ const ListIndex = () => {
           <div className="tasks_list__items__empty">No tasks yet!</div>
         )}
       </div>
-      {isModalOpen && selectedTaskId && (
+      {isModalOpen && (
         <Modal
           onClose={() => {
             setIsModalOpen(false);
             setSelectedTaskId(null);
-            document.documentElement.classList.remove('modal_open');
           }}
         >
-          <ModalEditTask
-            taskId={selectedTaskId}
-            onClose={() => {
-              setIsModalOpen(false);
-              setSelectedTaskId(null);
-              document.documentElement.classList.remove('modal_open');
-            }}
-          />
+          {selectedTaskId ? (
+            <ModalEditTask
+              taskId={selectedTaskId}
+              handleClose={() => {
+                (setIsModalOpen(false), setSelectedTaskId(null));
+              }}
+            />
+          ) : (
+            <ModalEditList handleClose={() => setIsModalOpen(false)} />
+          )}
         </Modal>
       )}
     </div>

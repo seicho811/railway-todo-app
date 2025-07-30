@@ -1,18 +1,18 @@
 import { useCallback, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { ChevronIcon } from '~/icons/ChevronIcon';
 import { Button } from '~/components/Button/Button';
-import { SubmitButton } from '~/components/Button/SubmitButton';
+import { BackButton } from '~/components/Button/BackButton';
 import { DiscardButton } from '~/components/Button/DiscardButton';
+import { SubmitButton } from '~/components/Button/SubmitButton';
 import { Input } from '~/components/Form/Input';
 import { TextArea } from '~/components/Form/TextArea';
-import { setCurrentList } from '~/store/list';
-import { fetchTasks, updateTask, deleteTask } from '~/store/task';
+import { updateTask, deleteTask } from '~/store/task';
 import { useId } from '~/hooks/useId';
+import { formatUtcStringToJst } from '~/utils/dateUtils';
 import './ModalEditTask.css';
 
-const ModalEditTask = ({ taskId, onClose }) => {
+const ModalEditTask = ({ taskId, handleClose }) => {
   const id = useId();
   const { listId } = useParams();
 
@@ -30,26 +30,13 @@ const ModalEditTask = ({ taskId, onClose }) => {
     state.task.tasks?.find((task) => task.id === taskId)
   );
 
-  document.documentElement.classList.add('modal_open');
-
   useEffect(() => {
     if (!task) {
       return;
     }
     //LimitがUndefinedの場合か確認して初期化
     const initialLimit = task.limit
-      ? new Date(task.limit)
-          .toLocaleDateString('ja-JP', {
-            timeZone: 'Asia/Tokyo',
-            year: 'numeric',
-            month: '2-digit',
-            day: '2-digit',
-            hour: '2-digit',
-            minute: '2-digit',
-            hour12: false,
-          })
-          .replace(/\//g, '-')
-          .replace(' ', 'T')
+      ? formatUtcStringToJst(task.limit).replace(/\//g, '-').replace(' ', 'T')
       : '';
 
     if (task) {
@@ -72,7 +59,7 @@ const ModalEditTask = ({ taskId, onClose }) => {
       )
         .unwrap()
         .then(() => {
-          onClose();
+          handleClose();
         })
         .catch((err) => {
           setErrorMessage(err.message);
@@ -88,7 +75,7 @@ const ModalEditTask = ({ taskId, onClose }) => {
     if (!window.confirm('Are you sure you want to delete this task?')) {
       return;
     }
-    onClose();
+    handleClose();
 
     void dispatch(deleteTask({ id: taskId }))
       .unwrap()
@@ -99,11 +86,7 @@ const ModalEditTask = ({ taskId, onClose }) => {
 
   return (
     <main className="edit_task">
-      <Button onClick={() => onClose()} className="back_button">
-        <ChevronIcon className="back_button__icon" />
-        Back
-      </Button>
-
+      <BackButton onClick={handleClose} />
       <h2 className="edit_task__title">Edit Task</h2>
       <p className="edit_task__error">{errorMessage}</p>
       <form className="edit_task__form" onSubmit={onSubmit}>
@@ -151,13 +134,7 @@ const ModalEditTask = ({ taskId, onClose }) => {
           </div>
         </fieldset>
         <div className="edit_task__form_actions">
-          <button
-            data-variant="secondary"
-            className="app_button"
-            onClick={onClose}
-          >
-            Cancel
-          </button>
+          <Button text="Cancel" variant="secondary" onClick={handleClose} />
           <div className="edit_task__form_actions_spacer"></div>
           <DiscardButton
             text="Delete"

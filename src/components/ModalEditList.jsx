@@ -1,19 +1,19 @@
 import { useCallback, useState, useEffect } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import { Button } from '~/components/Button/Button';
 import { BackButton } from '~/components/Button/BackButton';
 import { SubmitButton } from '~/components/Button/SubmitButton';
 import { Input } from '~/components/Form/Input';
-import './index.css';
 import { fetchLists, updateList, deleteList } from '~/store/list';
 import { useId } from '~/hooks/useId';
 import { DiscardButton } from '~/components/Button/DiscardButton';
+import './ModalEditList.css';
 
-const EditList = () => {
+const ModalEditList = ({ handleClose }) => {
   const id = useId();
 
   const { listId } = useParams();
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const [title, setTitle] = useState('');
@@ -44,7 +44,7 @@ const EditList = () => {
       void dispatch(updateList({ id: listId, title }))
         .unwrap()
         .then(() => {
-          navigate(`/lists/${listId}`);
+          handleClose();
         })
         .catch((err) => {
           setErrorMessage(err.message);
@@ -61,24 +61,17 @@ const EditList = () => {
       return;
     }
 
-    setIsSubmitting(true);
-
+    handleClose();
     void dispatch(deleteList({ id: listId }))
       .unwrap()
-      .then(() => {
-        navigate(`/`);
-      })
       .catch((err) => {
         setErrorMessage(err.message);
-      })
-      .finally(() => {
-        setIsSubmitting(false);
       });
   }, []);
 
   return (
     <main className="edit_list">
-      <BackButton />
+      <BackButton onClick={handleClose} />
       <h2 className="edit_list__title">Edit List</h2>
       <p className="edit_list__error">{errorMessage}</p>
       <form className="edit_list__form" onSubmit={onSubmit}>
@@ -94,9 +87,7 @@ const EditList = () => {
           />
         </fieldset>
         <div className="edit_list__form_actions">
-          <Link to="/" data-variant="secondary" className="app_button">
-            Cancel
-          </Link>
+          <Button text={'Cancel'} variant="secondary" onClick={handleClose} />
           <div className="edit_list__form_actions_spacer"></div>
           <DiscardButton
             text={'Delete'}
@@ -111,4 +102,4 @@ const EditList = () => {
   );
 };
 
-export default EditList;
+export default ModalEditList;
