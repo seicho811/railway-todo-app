@@ -6,6 +6,24 @@ export const Modal = ({ children, onClose }) => {
   const modalRef = useRef(null);
 
   useEffect(() => {
+    document.documentElement.classList.add('modal_open');
+    return () => {
+      document.documentElement.classList.remove('modal_open');
+    };
+  }, []);
+
+  const handleClose = () => {
+    onClose();
+    document.documentElement.classList.remove('modal_open');
+  };
+
+  const handleOverlayClick = (event) => {
+    if (event.target === event.currentTarget) {
+      handleClose();
+    }
+  };
+
+  useEffect(() => {
     const focusableSelectors = [
       'button:not([disabled])',
       'input:not([disabled])',
@@ -51,18 +69,12 @@ export const Modal = ({ children, onClose }) => {
     };
   }, []);
 
-  const handleOverlayClick = (event) => {
-    if (event.target === event.currentTarget) {
-      onClose();
-    }
-  };
-
   return createPortal(
     <div className="modal-overlay" onClick={handleOverlayClick}>
       <div className="modal-content" ref={modalRef}>
-        {children}
+        {typeof children === 'function' ? children(handleClose) : children}
       </div>
-      <button className="modal-close" onClick={onClose}>
+      <button className="modal-close" onClick={handleClose}>
         Close
       </button>
     </div>,
