@@ -7,22 +7,9 @@ const focusableSelectors = [
   'textarea:not([disabled])',
 ];
 
-const useFocusTrap = (
-  modalRef,
-  onClose,
-  lockBodyScroll = true,
-  inertSelectors = 'main'
-) => {
+const useFocusTrap = (modalRef, onClose) => {
   useEffect(() => {
     const modal = modalRef.current;
-
-    // set inert attribute to elements that should not be focusable
-    const inertTargets = Array.from(document.querySelectorAll(inertSelectors));
-    inertTargets.forEach((target) => target.setAttribute('inert', ''));
-
-    // if lockBodyScroll is true, prevent body scroll
-    const prevOverflow = document.body.style.overflow;
-    if (lockBodyScroll) document.body.style.overflow = 'hidden';
 
     const focusableElements = modal.querySelectorAll(
       focusableSelectors.join(',')
@@ -32,11 +19,6 @@ const useFocusTrap = (
     firstElement?.focus();
 
     const handleKeyDown = (event) => {
-      if (event.key === 'Escape') {
-        event.preventDefault();
-        onClose();
-        return;
-      }
       // Shift + Tab to go backwards
       if (event.key !== 'Tab') return;
 
@@ -58,12 +40,8 @@ const useFocusTrap = (
 
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
-      inertTargets.forEach((target) => target.removeAttribute('inert'));
-      if (lockBodyScroll) {
-        document.body.style.overflow = prevOverflow;
-      }
     };
-  }, [modalRef, onClose, lockBodyScroll, inertSelectors]);
+  }, [modalRef, onClose]);
 };
 
 export default useFocusTrap;

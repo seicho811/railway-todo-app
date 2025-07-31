@@ -1,24 +1,25 @@
 import { createPortal } from 'react-dom';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { Button } from '~/components/Button/Button';
 import Title from './Title';
 import './Drawer.css';
 import useFocusTrap from '~/hooks/useFocusTrap';
+import useOverlayDismiss from '~/hooks/useOverlayDismiss';
+import useScrollLock from '~/hooks/useScrollLock';
+import useAriaHider from '~/hooks/useAriaHider';
 
 export const Drawer = ({ children, onClose, open }) => {
   const modalRef = useRef(null);
 
   useFocusTrap(modalRef, onClose);
+  useScrollLock(true);
+  useAriaHider('main');
 
-  const handleOverlayClick = (event) => {
-    if (event.target === event.currentTarget) {
-      onClose();
-    }
-  };
+  const { onOverlayClick } = useOverlayDismiss({ onDismiss: onClose });
 
   return createPortal(
     <>
-      <div className="backdrop" data-open={open} onClick={handleOverlayClick} />
+      <div className="backdrop" data-open={open} onClick={onOverlayClick} />
       <div className="drawer" ref={modalRef} data-open={open}>
         <div className="drawer__header">
           <Title className="drawer__title" />
