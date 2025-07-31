@@ -1,0 +1,35 @@
+.tasks_list__title {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: var(--slate-700);
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+  font-weight: 700;
+}
+
+.tasks_list_mobile__title {
+  display: flex;
+  flex-direction: row;
+  background: #fff;
+  align-items: center;
+  gap: 1rem;
+  color: var(--slate-700);
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+  font-weight: 700;
+}
+
+.tasks_list__title__count {
+  font-size: 0.875rem;
+  line-height: 1rem;
+  font-weight: 700;
+  background: var(--slate-300);
+  color: var(--slate-500);
+  border-radius: 0.75rem;
+  padding: 0.25rem 0.5rem;
+}
+
+.tasks_list__title_spacer {
+  flex: 1;
+}

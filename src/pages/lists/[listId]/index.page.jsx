@@ -5,13 +5,12 @@ import { TaskItem } from '~/components/TaskItem';
 import { TaskCreateForm } from '~/components/TaskCreateForm';
 import { setCurrentList } from '~/store/list';
 import { fetchTasks } from '~/store/task';
-import { Button } from '~/components/Button/Button';
 import './index.css';
 import { Modal } from '~/components/Modal';
 import ModalEditTask from '~/components/ModalEditTask';
 import ModalEditList from '~/components/ModalEditList';
 import useMediaQuery from '~/hooks/useMediaQuery';
-import { PencilIcon } from '~/icons/PencilIcon';
+import { TaskListTitle } from '~/components/TaskListTitle';
 
 const ListIndex = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -46,22 +45,11 @@ const ListIndex = () => {
 
   return (
     <div className="tasks_list">
-      <div className="tasks_list__title">
-        {listName}
-        {incompleteTasksCount > 0 && (
-          <span className="tasks_list__title__count">
-            {incompleteTasksCount}
-          </span>
-        )}
-        <div className="tasks_list__title_spacer"></div>
-        {isMobile ? (
-          <button onClick={() => setIsModalOpen(true)}>
-            <PencilIcon />
-          </button>
-        ) : (
-          <Button text="Edit..." onClick={() => setIsModalOpen(true)} />
-        )}
-      </div>
+      <TaskListTitle
+        listName={listName}
+        incompleteTasksCount={incompleteTasksCount}
+        isMobile={isMobile}
+      />
       <div className="tasks_list__items">
         <TaskCreateForm />
         {tasks?.map((task) => {
