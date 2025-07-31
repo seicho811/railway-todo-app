@@ -10,12 +10,16 @@ import './index.css';
 import { Modal } from '~/components/Modal';
 import ModalEditTask from '~/components/ModalEditTask';
 import ModalEditList from '~/components/ModalEditList';
+import useMediaQuery from '~/hooks/useMediaQuery';
+import { PencilIcon } from '~/icons/PencilIcon';
 
 const ListIndex = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTaskId, setSelectedTaskId] = useState(null);
   const dispatch = useDispatch();
   const { listId } = useParams();
+
+  const isMobile = useMediaQuery('(max-width: 768px)');
 
   const isLoading = useSelector(
     (state) => state.task.isLoading || state.list.isLoading
@@ -50,7 +54,13 @@ const ListIndex = () => {
           </span>
         )}
         <div className="tasks_list__title_spacer"></div>
-        <Button text="Edit..." onClick={() => setIsModalOpen(true)} />
+        {isMobile ? (
+          <button onClick={() => setIsModalOpen(true)}>
+            <PencilIcon />
+          </button>
+        ) : (
+          <Button text="Edit..." onClick={() => setIsModalOpen(true)} />
+        )}
       </div>
       <div className="tasks_list__items">
         <TaskCreateForm />

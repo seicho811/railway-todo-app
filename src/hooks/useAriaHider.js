@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
-const useAriaHider = (inertSelectors) => {
+const useAriaHider = () => {
   useEffect(() => {
     // set inert attribute to elements that should not be focusable
-    const inertTargets = Array.from(document.querySelectorAll(inertSelectors));
+    const inertTargets = Array.from(document.getElementById('root'));
     inertTargets.forEach((target) => target.setAttribute('inert', ''));
 
     return () => {
@@ -10,7 +10,7 @@ const useAriaHider = (inertSelectors) => {
       inertTargets.forEach((target) => target.removeAttribute('inert'));
       // or when the inertSelectors change
     };
-  }, [inertSelectors]);
+  }, []);
 };
 
 export default useAriaHider;

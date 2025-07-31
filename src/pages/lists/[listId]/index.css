@@ -15,6 +15,17 @@
   font-weight: 700;
 }
 
+.tasks_list_mobile__title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  color: var(--slate-700);
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+  font-weight: 700;
+}
+
 .tasks_list__title__count {
   font-size: 0.875rem;
   line-height: 1rem;

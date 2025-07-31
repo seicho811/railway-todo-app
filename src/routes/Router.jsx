@@ -14,22 +14,24 @@ export const Router = () => {
 
   return (
     <BrowserRouter>
-      <Sidebar />
-      <div className="main_content">
-        <Routes>
-          <Route path="/signin" element={<SignIn />} />
-          <Route path="/signup" element={<SignUp />} />
-          {auth ? (
-            <>
-              <Route path="/" element={<Home />} />
-              <Route path="/lists/:listId" element={<ListIndex />} />
-              <Route path="/list/new" element={<NewList />} />
-            </>
-          ) : (
-            <Route path="/" element={<Navigate to="/signin" />} />
-          )}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+      <div id="page">
+        <Sidebar />
+        <div className="main_content">
+          <Routes>
+            <Route path="/signin" element={<SignIn />} />
+            <Route path="/signup" element={<SignUp />} />
+            {auth ? (
+              <>
+                <Route path="/" element={<Home />} />
+                <Route path="/lists/:listId" element={<ListIndex />} />
+                <Route path="/list/new" element={<NewList />} />
+              </>
+            ) : (
+              <Route path="/" element={<Navigate to="/signin" />} />
+            )}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </div>
       </div>
     </BrowserRouter>
   );
